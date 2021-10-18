@@ -1,0 +1,30 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Book
+
+<h2>Book Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)</h3>
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This book does not have an author associated with it.</p>
+}
+else
+{
+  <h3>Authors the book has associated with it:</h3>
+  <ul>
+  @foreach(var join in Model.JoinEntities)
+  {
+    <li>@join.Author.FirstName</li>
+  }
+  </ul>
+}
+
+@foreach(var join in Model.JoinEntities)
+{
+  <li>join.Author.FirstName</li>
+  @using
+})

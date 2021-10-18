@@ -1,0 +1,23 @@
+@{
+  Layout ="_Layout";
+}
+
+@using Library.Models;
+@model IEnumerable<Library.Models.Book>
+
+<h1>@User.Identity.Name's Books</h1>
+@if (Model.Any())
+{
+  @foreach (Book book in Model)
+  {
+    @Html.ActionLink($"{book.Title}", "Details", new {id = book.BookId})
+    <br>
+  }
+}
+else
+{
+  <h3>No books here! Why don't you check out some books?</h3>
+}
+
+<p>@Html.ActionLink("View All Books", "Index", "Books")</p>
+<p>@Html.ActionLink("Return Home", "Home", "Index")</p>

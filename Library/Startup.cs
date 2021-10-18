@@ -29,7 +29,7 @@ namespace Library
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
         
         services.AddIdentity<ApplicationUser, IdentityRole>()
-        .AddEntityFrameworkStores<ToDoListContext>()
+        .AddEntityFrameworkStores<LibraryContext>()
         .AddDefaultTokenProviders();
 
       services.Configure<IdentityOptions>(options =>
