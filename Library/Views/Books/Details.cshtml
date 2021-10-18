@@ -7,6 +7,7 @@
 <h2>Book Details</h2>
 <hr />
 <h3>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)</h3>
+<h3>@Html.DisplayNameFor(model => model.Genre): @Html.DisplayFor(model => model.Genre)</h3>
 
 @if(@Model.JoinEntities.Count == 0)
 {
@@ -18,13 +19,17 @@ else
   <ul>
   @foreach(var join in Model.JoinEntities)
   {
-    <li>@join.Author.FirstName</li>
+    <li>@join.Author.FirstName @join.Author.LastName</li>
+    @using (Html.BeginForm("DeleteAuthor", "Books"))
+    {
+      @Html.Hidden("joinId", @join.BookAuthorsId)
+      <input type="submit" value="Delete"/>
+    }
   }
   </ul>
 }
 
-@foreach(var join in Model.JoinEntities)
-{
-  <li>join.Author.FirstName</li>
-  @using
-})
+<p>@Html.ActionLink("Add an Author", "AddAuthor", new { id = Model.BookId })</p>
+<p>@Html.ActionLink("Back to book list", "Index")</p>
+<p>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</p>
+<p>@Html.ActionLink("Delete Item", "Delete", new { id = Model.BookId })</p>

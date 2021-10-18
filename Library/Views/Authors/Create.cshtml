@@ -9,6 +9,10 @@
 {
   @Html.LabelFor(model => model.FirstName)
   @Html.TextBoxFor(model => model.FirstName)
+
+  @Html.LabelFor(model => model.LastName)
+  @Html.TextBoxFor(model => model.LastName)
+
   <input type="submit" value="Add new author" />
 }
 <p>@Html.ActionLink("Show all authors", "Index")</p>

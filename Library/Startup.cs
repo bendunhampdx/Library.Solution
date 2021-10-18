@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,8 +30,16 @@ namespace Library
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
         
         services.AddIdentity<ApplicationUser, IdentityRole>()
+        .AddRoles<IdentityRole>() //new code for multiple users
         .AddEntityFrameworkStores<LibraryContext>()
         .AddDefaultTokenProviders();
+      
+        services.AddAuthorization(options =>
+      {
+          options.FallbackPolicy = new AuthorizationPolicyBuilder()
+              .RequireAuthenticatedUser()
+              .Build();
+      }); //new code for multiple users
 
       services.Configure<IdentityOptions>(options =>
       {

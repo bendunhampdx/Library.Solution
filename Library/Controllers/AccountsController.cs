@@ -1,11 +1,13 @@
 using Library.Models;
 using Library.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
 namespace Library.Controllers
 {
+  [AllowAnonymous]
   public class AccountsController :  Controller
   {
     private readonly LibraryContext _db;
@@ -23,13 +25,13 @@ namespace Library.Controllers
     {
       return View();
     }
-
+    [AllowAnonymous]
     public IActionResult Register()
     {
       return View();
     }
 
-    [HttpPost]
+    [HttpPost, AllowAnonymous]
     public async Task<ActionResult> Register (RegisterViewModel model)
     {
       var user = new ApplicationUser { UserName = model.Email };
@@ -44,13 +46,13 @@ namespace Library.Controllers
         return View();
       }
     }
-
+    [AllowAnonymous]
     public ActionResult Login()
     {
       return View();
     }
 
-    [HttpPost]
+    [HttpPost, AllowAnonymous]
     public async Task<ActionResult> Login(LoginViewModel model)
     {
        Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);

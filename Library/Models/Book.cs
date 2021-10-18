@@ -10,6 +10,8 @@ namespace Library.Models
       }
 
       public int BookId { get; set; }
+
+      public string OwnerId { get; set; }
       public string Title { get; set; }
       public string Genre { get; set; }
 
@@ -17,5 +19,13 @@ namespace Library.Models
       public virtual ApplicationUser User { get; set; }
 
       public virtual ICollection<BookAuthors> JoinEntities {get;}
+
+      public BookStatus Status { get; set; }
+    }
+    public enum BookStatus
+    {
+      Submitted,
+      Approved,
+      Rejected
     }
 }
