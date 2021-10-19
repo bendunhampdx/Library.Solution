@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Library</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/styles.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/styles.css">
   </head>
   <body>
     <div class="header">
@@ -18,7 +18,7 @@
       @Html.ActionLink("Login", "Index", "Accounts")
     </div>
     <div class="container">
-    @RenderBody()
+      @RenderBody()
     </div>
   </body>
 </html>
