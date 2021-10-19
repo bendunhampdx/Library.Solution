@@ -22,7 +22,8 @@ namespace Library.Controllers
       _userManager = userManager;
       _db = db;
     }
-
+    
+    [AllowAnonymous]
     public ActionResult Index()
     {
       List<Book> model = _db.Books.ToList();
@@ -37,6 +38,7 @@ namespace Library.Controllers
       return View(userBooks);
     }
 
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       var thisBook = _db.Books

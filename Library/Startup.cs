@@ -34,12 +34,12 @@ namespace Library
         .AddEntityFrameworkStores<LibraryContext>()
         .AddDefaultTokenProviders();
       
-        services.AddAuthorization(options =>
-      {
-          options.FallbackPolicy = new AuthorizationPolicyBuilder()
-              .RequireAuthenticatedUser()
-              .Build();
-      }); //new code for multiple users
+      //   services.AddAuthorization(options =>
+      // {
+      //     options.FallbackPolicy = new AuthorizationPolicyBuilder()
+      //         .RequireAuthenticatedUser()
+      //         .Build();
+      // }); //new code for multiple users
 
       services.Configure<IdentityOptions>(options =>
       {

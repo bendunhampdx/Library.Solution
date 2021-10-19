@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Library.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Library.Controllers
 {
+    [Authorize]
     public class AuthorsController : Controller 
     {
       private readonly LibraryContext _db;
@@ -15,6 +17,7 @@ namespace Library.Controllers
         _db = db;
       }
 
+      [AllowAnonymous]
       public ActionResult Index()
       {
         List<Author> model = _db.Authors.ToList();
@@ -32,6 +35,8 @@ namespace Library.Controllers
         _db.SaveChanges();
         return RedirectToAction("Index");
       }
+
+      [AllowAnonymous]
       public ActionResult Details(int id)
       {
         var thisAuthor = _db.Authors

@@ -10,6 +10,8 @@ namespace Library.Models
 
     public DbSet<BookAuthors> BookAuthors {get;set;}
 
+    public DbSet<ApplicationUser> ApplicationUsers {get; set;}
+
     public LibraryContext(DbContextOptions options) : base(options) {}
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
