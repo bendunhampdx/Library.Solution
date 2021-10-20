@@ -3,21 +3,20 @@
 }
 
 @using Library.Models;
-@model IEnumerable<Library.Models.Book>
+@model Library.Models.ApplicationUser
 
 <h1>@User.Identity.Name's Books</h1>
-@if (Model.Any())
+@if (Model.JoinUserBooks.Count == 0)
 {
-  @foreach (Book book in Model)
-  {
-    @Html.ActionLink($"{book.Title}", "Details", new {id = book.BookId})
-    <br>
-  }
+  <p> you have no books</p>
 }
 else
 {
-  <h3>No books here! Why don't you check out some books?</h3>
+  @foreach (var join in Model.JoinUserBooks)
+  {
+    @Html.ActionLink($"{join.Book.Title}", "Details", new {id = join.Book.BookId})
+    <br>
+  }
 }
-
 <p>@Html.ActionLink("View All Books", "Index", "Books")</p>
 <p>@Html.ActionLink("Return Home", "Index", "Home")</p>

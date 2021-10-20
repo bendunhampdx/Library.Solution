@@ -32,22 +32,15 @@ namespace Library.Controllers
     [AllowAnonymous]
     public async Task<ActionResult> UserBooks()
     {
-      // var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-      // var bookList = _db.ApplicationUsers
-      //   .Include(user => user.JoinUserBooks)
-      //   .ThenInclude(join => join.Book)
-      //   .FirstOrDefault(user => user.Id == UserId);
-      // return View(bookList);
 
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
-      var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      var userBooks = _db.ApplicationUsers
+        .Include(user=> user.JoinUserBooks)
+        .ThenInclude(join=>join.Book)
+        .FirstOrDefault(user=>user.Id == currentUser.Id);
       return View(userBooks);
 
-      // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      // var currentUser = await _userManager.FindByIdAsync(userId);
-      // var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
-      // return View(userBooks);
     }
 
     [AllowAnonymous]
@@ -66,11 +59,9 @@ namespace Library.Controllers
       return View();
     }
     [HttpPost]
-    public async Task<ActionResult> Create(Book book, int AuthorId)
+    public ActionResult Create(Book book, int AuthorId)
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
-      book.User = currentUser;
+
       _db.Books.Add(book);
       _db.SaveChanges();
       if (AuthorId != 0)
