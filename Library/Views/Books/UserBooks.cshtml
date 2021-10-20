@@ -12,11 +12,19 @@
 }
 else
 {
-  @foreach (var join in Model.JoinUserBooks)
-  {
-    @Html.ActionLink($"{join.Book.Title}", "Details", new {id = join.Book.BookId})
-    <br>
-  }
+  <table class="table table-sm table-bordered table-bordered">
+    <tr>
+      <th>Title</th>
+      <th>Checkout Date</th>
+    </tr>
+    @foreach (var join in Model.JoinUserBooks)
+    {
+      <tr>
+        <td>@Html.ActionLink($"{join.Book.Title}", "Details", new {id = join.Book.BookId})</td>
+        <td>@join.CheckoutDate</td>
+    </tr>
+    }
+  </table>
 }
 <p>@Html.ActionLink("View All Books", "Index", "Books")</p>
 <p>@Html.ActionLink("Return Home", "Index", "Home")</p>

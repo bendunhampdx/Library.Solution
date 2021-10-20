@@ -1,3 +1,5 @@
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Library.Models
 {
@@ -8,6 +10,10 @@ namespace Library.Models
 
     public string UserId {get; set;}
 
+    [DisplayFormat(DataFormatString = "{0:MMMM dd, yyyy}")]
+    public DateTime CheckoutDate { get; set; }
+
+   
     public virtual ApplicationUser User {get; set;}
     public virtual Book Book {get; set;}
   }

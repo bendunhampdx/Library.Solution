@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Library.Controllers
 {
-   [AllowAnonymous]
+  [AllowAnonymous]
   public class RoleController : Controller
   {
     private RoleManager<IdentityRole> _roleManager;

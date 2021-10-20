@@ -85,7 +85,7 @@ namespace Library.Controllers
       var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
       if (UserId != null && !_db.UserBooks.Any(model => model.BookId == book.BookId && model.UserId == UserId))
       {
-        _db.UserBooks.Add(new Models.UserBooks() {UserId = UserId, BookId = book.BookId});
+        _db.UserBooks.Add(new Models.UserBooks() {UserId = UserId, BookId = book.BookId, CheckoutDate = System.DateTime.Now});
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
