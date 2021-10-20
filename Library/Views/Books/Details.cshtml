@@ -15,21 +15,34 @@
 }
 else
 {
-  <h3>Authors the book has associated with it:</h3>
+  <h3>Author(s):</h3>
   <ul>
   @foreach(var join in Model.JoinEntities)
   {
     <li>@join.Author.FirstName @join.Author.LastName</li>
-    @using (Html.BeginForm("DeleteAuthor", "Books"))
+    @if(User.Identity.IsAuthenticated)
     {
-      @Html.Hidden("joinId", @join.BookAuthorsId)
-      <input type="submit" value="Delete"/>
+      @if(User.IsInRole("Librarian"))
+      {
+        @using (Html.BeginForm("DeleteAuthor", "Books"))
+        {
+          @Html.Hidden("joinId", @join.BookAuthorsId)
+          <input type="submit" value="Delete"/>
+        }
+      }
     }
   }
   </ul>
 }
-
-<p>@Html.ActionLink("Add an Author", "AddAuthor", new { id = Model.BookId })</p>
+@if(User.Identity.IsAuthenticated) 
+{
+  <p>@Html.ActionLink("Checkout Book", "CheckoutBook", new { id = Model.BookId})</p>
+  
+  @if(User.IsInRole("Librarian"))
+  {
+    <p>@Html.ActionLink("Add an Author", "AddAuthor", new { id = Model.BookId })</p>
+    <p>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</p>
+    <p>@Html.ActionLink("Delete Item", "Delete", new { id = Model.BookId })</p>
+  }
+}
 <p>@Html.ActionLink("Back to book list", "Index")</p>
-<p>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</p>
-<p>@Html.ActionLink("Delete Item", "Delete", new { id = Model.BookId })</p>

@@ -3,14 +3,16 @@ using System;
 using Library.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20211020184229_JoinUserBooks")]
+    partial class JoinUserBooks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -336,7 +338,7 @@ namespace Library.Migrations
                         .IsRequired();
 
                     b.HasOne("Library.Models.ApplicationUser", "User")
-                        .WithMany("JoinUserBooks")
+                        .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("Book");
@@ -393,11 +395,6 @@ namespace Library.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Library.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("JoinUserBooks");
                 });
 
             modelBuilder.Entity("Library.Models.Author", b =>

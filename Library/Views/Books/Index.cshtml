@@ -20,6 +20,12 @@ else
 }
 
 <br>
-<p>@Html.ActionLink("Add new book", "Create")</p>
+@if (User.Identity.IsAuthenticated)
+{
+  @if (User.IsInRole("Librarian"))
+  {
+    <p>@Html.ActionLink("Add new book", "Create")</p>
+  }
+}
 <p>@Html.ActionLink("Return Home", "Index", "Home")</p>
 <p>@Html.ActionLink("View All Authors", "Index", "Authors")</p>

@@ -9,6 +9,7 @@ namespace Library.Models
     public DbSet<Author> Authors {get; set;}
 
     public DbSet<BookAuthors> BookAuthors {get;set;}
+    public DbSet<UserBooks> UserBooks {get; set;}
 
     public DbSet<ApplicationUser> ApplicationUsers {get; set;}
 

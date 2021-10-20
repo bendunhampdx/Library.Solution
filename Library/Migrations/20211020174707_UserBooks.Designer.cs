@@ -3,14 +3,16 @@ using System;
 using Library.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20211020174707_UserBooks")]
+    partial class UserBooks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,6 +117,9 @@ namespace Library.Migrations
 
                     b.Property<string>("OwnerId")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -330,13 +335,13 @@ namespace Library.Migrations
             modelBuilder.Entity("Library.Models.UserBooks", b =>
                 {
                     b.HasOne("Library.Models.Book", "Book")
-                        .WithMany("JoinUserBooks")
+                        .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Library.Models.ApplicationUser", "User")
-                        .WithMany("JoinUserBooks")
+                        .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("Book");
@@ -395,11 +400,6 @@ namespace Library.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Library.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("JoinUserBooks");
-                });
-
             modelBuilder.Entity("Library.Models.Author", b =>
                 {
                     b.Navigation("JoinEntities");
@@ -408,8 +408,6 @@ namespace Library.Migrations
             modelBuilder.Entity("Library.Models.Book", b =>
                 {
                     b.Navigation("JoinEntities");
-
-                    b.Navigation("JoinUserBooks");
                 });
 #pragma warning restore 612, 618
         }

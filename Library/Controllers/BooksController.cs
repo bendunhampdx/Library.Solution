@@ -11,7 +11,7 @@ using System.Security.Claims;
 
 namespace Library.Controllers
 {
-  [Authorize]
+  [Authorize(Roles = "Librarian")]
   public class BooksController : Controller
   {
     private readonly LibraryContext _db;
@@ -29,13 +29,25 @@ namespace Library.Controllers
       List<Book> model = _db.Books.ToList();
       return View(model);
     }
-
+    [AllowAnonymous]
     public async Task<ActionResult> UserBooks()
     {
+      // var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+      // var bookList = _db.ApplicationUsers
+      //   .Include(user => user.JoinUserBooks)
+      //   .ThenInclude(join => join.Book)
+      //   .FirstOrDefault(user => user.Id == UserId);
+      // return View(bookList);
+
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
       var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
       return View(userBooks);
+
+      // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      // var currentUser = await _userManager.FindByIdAsync(userId);
+      // var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      // return View(userBooks);
     }
 
     [AllowAnonymous]
@@ -64,6 +76,25 @@ namespace Library.Controllers
       if (AuthorId != 0)
       {
         _db.BookAuthors.Add(new BookAuthors() { AuthorId = AuthorId, BookId = book.BookId });
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    [AllowAnonymous]
+    public ActionResult CheckoutBook(int id)
+    {
+      var thisBook = _db.Books.FirstOrDefault(book => book.BookId ==id);
+      return View(thisBook);
+    }
+
+    [HttpPost, AllowAnonymous]
+    public ActionResult CheckoutBook(Book book)
+    {
+      var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+      if (UserId != null && !_db.UserBooks.Any(model => model.BookId == book.BookId && model.UserId == UserId))
+      {
+        _db.UserBooks.Add(new Models.UserBooks() {UserId = UserId, BookId = book.BookId});
       }
       _db.SaveChanges();
       return RedirectToAction("Index");

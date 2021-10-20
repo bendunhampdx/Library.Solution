@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Library.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Librarian")]
     public class AuthorsController : Controller 
     {
       private readonly LibraryContext _db;

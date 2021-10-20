@@ -20,12 +20,8 @@ namespace Library.Models
 
       public virtual ICollection<BookAuthors> JoinEntities {get;}
 
-      public BookStatus Status { get; set; }
+      public virtual ICollection<UserBooks> JoinUserBooks {get;}
+
     }
-    public enum BookStatus
-    {
-      Submitted,
-      Approved,
-      Rejected
-    }
+ 
 }

@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace Library.Controllers
 {
   [AllowAnonymous]
-  public class AccountsController :  Controller
+  public class accountController :  Controller
   {
     private readonly LibraryContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
 
-    public AccountsController (UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, LibraryContext db) 
+    public accountController (UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, LibraryContext db) 
     {
       _userManager = userManager;
       _signInManager = signInManager;
@@ -25,6 +25,12 @@ namespace Library.Controllers
     {
       return View();
     }
+
+    public IActionResult AccessDenied()
+    {
+      return View();
+    }
+
     [AllowAnonymous]
     public IActionResult Register()
     {
