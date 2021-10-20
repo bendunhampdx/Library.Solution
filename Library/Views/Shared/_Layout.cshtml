@@ -15,7 +15,16 @@
       @Html.ActionLink("Home", "Index", "Home")
       @Html.ActionLink("Books", "Index", "Books")
       @Html.ActionLink("Authors", "Index", "Authors")
-      @Html.ActionLink("Login", "Index", "Account")
+      @if(!User.Identity.IsAuthenticated)
+      {
+        @Html.ActionLink("Login", "Index", "Account")
+      }
+      @if(User.Identity.IsAuthenticated)
+      {
+        @Html.ActionLink("View Your Books", "UserBooks", "Books")
+        @Html.ActionLink("Log Out", "LogOff", "Account")
+
+      }
     </div>
     <div class="container">
       @RenderBody()

@@ -23,11 +23,12 @@
 }
 .fixedHeader a{
   color: grey;
-  padding: 6%;
+  margin: 6%;
 }
 a{
   color:grey;
   font-size: large;
+  
 }
 a:hover{
   font-weight: bolder;
