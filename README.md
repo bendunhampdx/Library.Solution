@@ -1,8 +1,8 @@
-# Project name
+# Library
 
-#### short description
+#### A library application that allows librarians to add books and user to checkout books
 
-#### Created By: Chynna Lew
+#### Created By: Chynna Lew and Ben Dunham
 
 ## Technologies Used
 
@@ -11,12 +11,19 @@
 * NuGet
 * ASP.NET Core
 * Entity Framework Core
+* ASP.NET MVC Identity
 * MySql
 * MySql Workbench
 
 ## Description
 
-description here
+This project was created for Epicodus bootcamp to show proficiency in Authentication with Identity. This application is for a Library, allowing the libaraian to log different books and general users to check out those books.
+
+Authentication Features:
+- Anyone can access the index and details views
+- Only authenticated users can access the YourBooks view
+- Only the Librarian role Create, Update, Delete views
+- The buttons on the navbar, Details and Index pages change depending on authentication status
 
 ## Setup and Usage Instructions
 
@@ -35,33 +42,37 @@ description here
   - dotnet add package Pomelo.EntityFrameworkCore.MySql -v 5.0.0-alpha.2
   - dotnet add package Microsoft.EntityFrameworkCore.Proxies -v 5.0.0
   - dotnet tool install --global dotnet-ef --version 3.0.0
+  - dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 5.0.0
 * Create a file named "appsettings.json" in the Library directory
   - add the following code to the appsettings.json file:
   ```
   {
     "ConnectionStrings": {
-        "DefaultConnection": "Server=localhost;Port=3306;database=database_name;uid=root;pwd=[YOUR-PASSWORD-HERE];"
+        "DefaultConnection": "Server=localhost;Port=3306;database=library;uid=root;pwd=[YOUR-PASSWORD-HERE];"
     }
-  }.
+  }
   ```
   - replace [YOUR-PASSWORD-HERE] with your unique MySql password
 * Launch the MySql server:
   - In the terminal, run the command "$ mySql -uroot -p[YOUR-PASSWORD-HERE]", replacing [YOUR-PASSWORD-HERE] with your unique MySql password
 * To Import the required database:
-  - Open MySql Workbench
-  - Select your preferred server(default is root)
-  - In the "Navigator > Administration" window, select "Data Import/ Restore"
-  - In "Import Options", select "Import From Self-Contained File"
-  - Navigate to "Library.Solutions/database_name.sql" in the search input
-  - Under "Default Schema to be Imported to" select the "New" button
-  - Enter "database_name" and click "OK"
-  - Navigate to the "Import Progress" tab and click "Start Import" in the bottom right corner of the window
-  - Reopen the "Navigator>Schemas" tab, Right click and select "refresh all" to see the imported database
+   - In the terminal, navigate to Library.Solution/Library and run the command:
+    - dotnet ef database update
+* To Make Changes to the Database:
+  - If you would like to change the database, make changes in the proper models files, then run the following commands in the terminal navigated to Library.Solution/Library:
+    - "dotnet ef migrations add YourDescriptionHere"
+    - "dotnet ef database update"
 * To Restore, build, and run the project:
   - Navigate to the Library.Solutions/Library folder in the command line or terminal
     - Run the command "$ dotnet restore" to restore the project dependencies
     - Run the command "$ dotnet build" to build and compile the project
     - Run the command "$ dotnet run" to build and compile the project
+* To Edit Permissions:
+  - Register a user on the Account/Register page
+  - Navigate to http://localhost:5000/Role/Create in the browser
+  - Add the roles: "Librarian" and "User"
+  - Navigate to http://localhost:5000/Role/Update in the browser
+  - Assign roles to users using the update form
 
 ## Known Bugs
 
@@ -74,5 +85,5 @@ Copyright 2021 Chynna Lew
 
 ## Support and contact details
 
-* [Chynna Lew](github.com/chynnalew) 
-* <ChynnaLew@yahoo.com>
+* [Chynna Lew](github.com/chynnalew) <ChynnaLew@yahoo.com>
+* [Ben Dunham](https://github.com/bendunhampdx)<bendunhampdx@gmail.com>
